@@ -16,3 +16,4 @@ export const statusBar2 = '#416e99';
 export const Wild_Watermelon = '#5cff5d';
 export const Royal_Blue = '#24b3de';
 export const Orange = '#ec4d03';
+export const BackgroundColor = '#FFFF00';

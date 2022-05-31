@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, TextInput} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Colors from '../constant/colors';
 
-const Input = () => {
+const Input = props => {
   return (
     <View style={styles.MainContainer}>
       <LinearGradient
@@ -11,9 +11,10 @@ const Input = () => {
         style={styles.LinearGradientStyle}>
         <View style={styles.ChildViewStyle}>
           <TextInput
-            placeholder="Enter Your Code Here"
+            placeholder={props.title}
             underlineColorAndroid="transparent"
-            keyboardType="number-pad"
+            onChangeText={txt => props.onChangeText(txt)}
+            value={props.value}
             style={styles.TextInputStyleClass}
           />
         </View>

@@ -21,6 +21,7 @@ target 'sucker' do
   )
 
   pod 'RNTextGradientView', :path => '../node_modules/react-native-text-gradient'
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
   target 'suckerTests' do
     inherit! :complete
