@@ -21,7 +21,6 @@ const Login = props => {
   };
   const onPressBtn = () => {
     if (inputVal == 1234) {
-      ShowAlert({type: 'success', description: 'Login Successfully'});
       props.navigation.navigate('AddTeamPlayers');
     } else {
       ShowAlert({type: 'error', description: 'Wrong Code'});

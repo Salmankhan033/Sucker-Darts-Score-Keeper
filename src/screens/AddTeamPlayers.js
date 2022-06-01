@@ -29,7 +29,7 @@ const AddTeamPlayers = props => {
 
         <Button
           title={'Add Team'}
-          onPress={() => props.navigation.navigate('AddPlayers')}
+          onPress={() => props.navigation.navigate('AddTeam')}
         />
       </View>
     </View>

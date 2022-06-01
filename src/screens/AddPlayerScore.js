@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -11,20 +11,61 @@ import Headers from '../components/Headers.js';
 import CustomText from '../components/CustomText.js';
 import Button from '../components/Button.js';
 import PlusButton from '../components/PlusButton.js';
+import Win from './Win.js';
 
 const AddPlayerScore = props => {
-  let totalPlayers = props.route.params ? props.route.params.players : [];
-  let desiredScore = props.route.params ? props.route.params.desiredScore : '';
-  console.log('Data......', totalPlayers, 'desiredScore', desiredScore);
+  let totalPlayers = props.route.params ? props.route?.params?.players : [];
+  let desiredScore = props.route.params
+    ? props.route?.params?.desiredScore
+    : '';
+  let type = props.route.params ? props.route?.params?.type : '';
+
+  console.log('totalPlayers', totalPlayers);
+  const [score, setScore] = useState('');
+
+  const [winnerName, setWinnerName] = useState('');
+
+  const onAddValue = item => {
+    if (item.score + 1 == desiredScore) {
+      setTimeout(() => {
+        props.navigation.navigate('Win', {
+          name: item.playerName,
+        });
+      }, 200);
+      item.score = item.score + 1;
+      setScore('');
+    } else {
+      item.score = item.score + 1;
+      setScore(item.score + 1);
+    }
+
+    setScore(item.score + 1);
+  };
+  const onMinusValue = item => {
+    if (item.score - 1 == desiredScore) {
+      setTimeout(() => {
+        props.navigation.navigate('Win', {
+          name: item.playerName,
+        });
+      }, 200);
+
+      item.score = item.score - 1;
+      setScore('');
+    } else {
+      item.score = item.score - 1;
+      setScore(item.score - 1);
+    }
+  };
+
   const RenderCard = ({item}) => {
     console.log('item...', item);
     return (
       <View style={styles.card}>
-        <CustomText size={20} title={item} style={styles.text} />
+        <CustomText size={20} title={item?.playerName} style={styles.text} />
         <View style={styles.midCard}>
-          <PlusButton title={'-'} onPress={{}} />
-          <CustomText size={20} title={0} style={styles.text} />
-          <PlusButton title={'+'} onPress={{}} />
+          <PlusButton title={'-'} onPress={() => onMinusValue(item)} />
+          <CustomText size={20} title={item.score} style={styles.text} />
+          <PlusButton title={'+'} onPress={() => onAddValue(item)} />
         </View>
       </View>
     );

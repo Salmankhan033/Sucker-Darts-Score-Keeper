@@ -16,10 +16,10 @@ const Button = props => {
     <View style={styles.MainContainer}>
       <LinearGradient
         colors={[Colors.Wild_Watermelon, Colors.Royal_Blue]}
-        style={styles.LinearGradientStyle}>
+        style={[styles.LinearGradientStyle, props.style]}>
         <TouchableOpacity style={styles.ChildViewStyle} onPress={props.onPress}>
           <LinearTextGradient
-            style={{fontWeight: 'bold', fontSize: 24}}
+            style={[{fontWeight: 'bold', fontSize: 24}, props.fontSize]}
             locations={[0, 1]}
             colors={['red', 'blue']}
             start={{x: 0, y: 0}}
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   LinearGradientStyle: {
     height: 50,
     borderRadius: 10,
-    height: 50,
+
     width: '80%',
     justifyContent: 'center',
   },

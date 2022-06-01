@@ -15,6 +15,7 @@ import Input from '../components/Input.js';
 import ShowAlert from '../components/ShowAlert.js';
 const AddPlayers = props => {
   const [playerName, setPlayerName] = useState('');
+
   const [players, setPlayers] = useState([]);
   const [score, setScore] = useState('');
   const changeVal = txt => {
@@ -25,10 +26,14 @@ const AddPlayers = props => {
   };
 
   const addPlayer = () => {
+    let data = {
+      playerName: playerName,
+      score: 0,
+    };
     if (playerName == '') {
       ShowAlert({type: 'error', description: `Please Add Player Name`});
     } else {
-      players.push(playerName);
+      players.push(data);
       ShowAlert({type: 'success', description: `${playerName} Added.`});
       setPlayerName('');
     }
@@ -41,9 +46,14 @@ const AddPlayers = props => {
   };
   const startGame = () => {
     if (players.length > 0 && score != '') {
+      for (let i = 0; i < players.length; i++) {
+        players[i].score = 0;
+      }
+
       props.navigation.navigate('AddPlayerScore', {
         players: players,
         desiredScore: score,
+        type: 'Player',
       });
     } else {
       ShowAlert({type: 'error', description: `Please Enter Data`});
