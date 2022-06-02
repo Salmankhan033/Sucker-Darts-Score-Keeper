@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -14,6 +14,8 @@ import Button from '../components/Button.js';
 import Input from '../components/Input.js';
 import ShowAlert from '../components/ShowAlert.js';
 const AddTeam = props => {
+  let same = props.route?.params ? props.route?.params?.same : false;
+
   const [playerName, setPlayerName] = useState('');
   const [players, setPlayers] = useState([]);
   const [score, setScore] = useState('');
@@ -24,6 +26,21 @@ const AddTeam = props => {
   const [playersArr, setPlayersArr] = useState([]);
   const [isTeam, setIsTeam] = useState(true);
 
+  useEffect(() => {
+    {
+      same ? null : reset();
+    }
+  }, [props.route.toString()]);
+  const reset = () => {
+    setPlayerName('');
+    setScore('');
+    setIsScore(true);
+    setTeamName('');
+    setTeamData({});
+    setPlayersArr([]);
+    setIsTeam(true);
+    setData([]);
+  };
   const onchangePlayer = txt => {
     setPlayerName(txt);
   };
@@ -35,16 +52,17 @@ const AddTeam = props => {
   };
   const onAddTeam = () => {
     if (teamName == '' || score == '') {
-      ShowAlert({type: 'error', description: `Please Add Team Name/Score`});
+      ShowAlert({type: 'error', description: `Please Add Team Name & Score`});
     } else {
       setIsTeam(false);
       setIsScore(false);
       let data = {
         teamName: teamName,
         score: score,
+        myScore: 0,
       };
       setTeamData(data);
-      ShowAlert({type: 'success', description: `${teamName} Added.`});
+      // ShowAlert({type: 'success', description: `${teamName} Added.`});
     }
   };
   const addPlayer = () => {
@@ -74,6 +92,7 @@ const AddTeam = props => {
         teamName: teamData.teamName,
         score: teamData.score,
         playerArr: playersArr,
+        myScore: teamData.myScore,
       };
       data.push(_data);
       setTeamData({});
@@ -91,9 +110,10 @@ const AddTeam = props => {
       //   }
       // }
 
-      props.navigation.navigate('AddPlayerScore', {
+      props.navigation.navigate('TeamPlay', {
         players: data,
         type: 'team',
+        desiredScore: score,
       });
     } else {
       ShowAlert({type: 'error', description: `Please Enter Data`});
@@ -129,6 +149,7 @@ const AddTeam = props => {
             />
           )}
           <Button title={'Add Team'} onPress={() => onAddTeam()} />
+          <Button title={'Start Game'} onPress={() => startGame()} />
         </View>
       ) : (
         <View style={styles.bottomContainer}>
@@ -139,12 +160,13 @@ const AddTeam = props => {
           />
           <Button title={'Add Player'} onPress={() => addPlayer()} />
           <Button
-            title={'Add Another Team'}
+            title={'Add Another Team / Go Back'}
             onPress={() => onAddAnotherTeam()}
+            fontSize={12}
           />
         </View>
       )}
-      <Button title={'Start Game'} onPress={() => startGame()} />
+      <Button title={'Reset'} onPress={() => reset()} />
     </View>
   );
 };

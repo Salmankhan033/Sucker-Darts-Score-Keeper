@@ -8,6 +8,7 @@ import AddPlayers from './screens/AddPlayers';
 import AddTeam from './screens/AddTeam';
 import AddPlayerScore from './screens/AddPlayerScore';
 import Win from './screens/Win';
+import TeamPlay from './screens/TeamPlay';
 const Stack = createNativeStackNavigator();
 const Navigations = () => {
   return (
@@ -36,12 +37,17 @@ const Navigations = () => {
         <Stack.Screen
           name="AddPlayerScore"
           component={AddPlayerScore}
-          // options={{headerShown: false}}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="Win"
           component={Win}
-          // options={{headerShown: false}}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="TeamPlay"
+          component={TeamPlay}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </SafeAreaProvider>

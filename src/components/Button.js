@@ -19,7 +19,7 @@ const Button = props => {
         style={[styles.LinearGradientStyle, props.style]}>
         <TouchableOpacity style={styles.ChildViewStyle} onPress={props.onPress}>
           <LinearTextGradient
-            style={[{fontWeight: 'bold', fontSize: 24}, props.fontSize]}
+            style={[{fontSize: 24}, props.fontSize]}
             locations={[0, 1]}
             colors={['red', 'blue']}
             start={{x: 0, y: 0}}

@@ -45,7 +45,7 @@ const AddPlayerScore = props => {
     if (item.score - 1 == desiredScore) {
       setTimeout(() => {
         props.navigation.navigate('Win', {
-          name: item.playerName,
+          name: item.e,
         });
       }, 200);
 

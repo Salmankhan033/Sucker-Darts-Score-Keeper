@@ -46,11 +46,10 @@ const styles = StyleSheet.create({
   },
 
   LinearGradientStyle: {
-    height: 50,
     borderRadius: 10,
-    height: hp('3%'),
+    height: hp('4%'),
     alignItems: 'center',
-    width: '100%',
+    width: wp('10%'),
     alignSelf: 'center',
     justifyContent: 'center',
   },

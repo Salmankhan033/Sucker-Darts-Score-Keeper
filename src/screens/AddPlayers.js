@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -18,6 +18,14 @@ const AddPlayers = props => {
 
   const [players, setPlayers] = useState([]);
   const [score, setScore] = useState('');
+  let same = props.route?.params ? props.route?.params?.same : false;
+
+  useEffect(() => {
+    {
+      same ? null : reset();
+    }
+  }, [props.route]);
+
   const changeVal = txt => {
     setPlayerName(txt);
   };
@@ -42,7 +50,7 @@ const AddPlayers = props => {
   const reset = () => {
     setPlayers([]);
     setPlayerName([]), setScore('');
-    ShowAlert({type: 'success', description: `Reset Successfully`});
+    // ShowAlert({type: 'success', description: `Reset Successfully`});
   };
   const startGame = () => {
     if (players.length > 0 && score != '') {
