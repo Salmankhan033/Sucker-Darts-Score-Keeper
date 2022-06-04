@@ -20,7 +20,7 @@ const Login = props => {
     setInputVal(txt);
   };
   const onPressBtn = () => {
-    if (inputVal == 1234) {
+    if (inputVal == 'TMC') {
       props.navigation.navigate('AddTeamPlayers');
     } else {
       ShowAlert({type: 'error', description: 'Wrong Code'});
@@ -35,6 +35,7 @@ const Login = props => {
         <Input
           title={'Enter Your Code Here'}
           value={inputVal}
+          inputType={'default'}
           onChangeText={changeVal}
         />
       </View>

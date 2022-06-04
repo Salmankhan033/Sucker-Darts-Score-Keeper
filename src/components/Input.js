@@ -15,6 +15,7 @@ const Input = props => {
             underlineColorAndroid="transparent"
             onChangeText={txt => props.onChangeText(txt)}
             value={props.value}
+            keyboardType={props.inputType}
             style={styles.TextInputStyleClass}
           />
         </View>

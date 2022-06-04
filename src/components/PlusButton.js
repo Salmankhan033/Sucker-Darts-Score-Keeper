@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -47,7 +41,7 @@ const styles = StyleSheet.create({
 
   LinearGradientStyle: {
     borderRadius: 10,
-    height: hp('4%'),
+    height: hp('5%'),
     alignItems: 'center',
     width: wp('10%'),
     alignSelf: 'center',

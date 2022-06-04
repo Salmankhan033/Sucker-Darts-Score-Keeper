@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {LinearTextGradient} from 'react-native-text-gradient';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Colors from '../constant/colors';
@@ -19,7 +13,7 @@ const Button = props => {
         style={[styles.LinearGradientStyle, props.style]}>
         <TouchableOpacity style={styles.ChildViewStyle} onPress={props.onPress}>
           <LinearTextGradient
-            style={[{fontSize: 24}, props.fontSize]}
+            style={[{fontSize: props?.type == true ? 16 : 24}, props.fontSize]}
             locations={[0, 1]}
             colors={['red', 'blue']}
             start={{x: 0, y: 0}}

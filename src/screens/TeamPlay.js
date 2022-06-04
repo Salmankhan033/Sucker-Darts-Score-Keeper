@@ -18,30 +18,16 @@ const TeamPlay = props => {
   let desiredScore = props.route.params
     ? props.route?.params?.desiredScore
     : '';
-  let type = props.route.params ? props.route?.params?.type : '';
 
-  // console.log(desiredScore, 'totalPlayers', JSON.stringify(totalPlayers));
   const [score, setScore] = useState(0);
-
   useEffect(() => {
     resetData();
-    const unsubscribe = props.navigation.addListener('focus', () => {
-      resetData();
-    });
-    return () => {
-      unsubscribe;
-    };
-  }, []);
+  }, [props.route]);
   const resetData = () => {
-    console.log('totalPlayers', totalPlayers.length);
+    console.log('Data...', totalPlayers);
     for (let t = 0; t < totalPlayers.length; t++) {
       for (let p = 0; p < totalPlayers[t].playerArr.length; p++) {
         totalPlayers[t].myScore = 0;
-        console.log('totalPlayers[i].myScore = 0', totalPlayers[t]);
-        console.log(
-          'totalPlayers[p].playerArr[p].score',
-          totalPlayers[t].playerArr[p],
-        );
         totalPlayers[t].playerArr[p].score = 0;
         setScore(score + 1);
       }
@@ -96,7 +82,7 @@ const TeamPlay = props => {
             style={styles.teamText}
           />
           {item.playerArr.map((player, index) => (
-            <View style={styles.card}>
+            <View style={styles.card} key={index}>
               <CustomText
                 size={16}
                 title={`Player: ${player.playerName}`}
@@ -138,6 +124,7 @@ const TeamPlay = props => {
         key={index => index}
         keyExtractor={(item, index) => index}
         ItemSeparatorComponent={separator}
+        contentContainerStyle={{paddingBottom: 50}}
       />
     </View>
   );
@@ -178,6 +165,7 @@ const styles = StyleSheet.create({
   },
   flatListStyle: {
     paddingTop: hp('3%'),
+    paddingBottom: hp('5%'),
   },
 });
 export default TeamPlay;

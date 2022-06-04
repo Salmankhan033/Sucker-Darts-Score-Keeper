@@ -4,6 +4,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 import * as Colors from '../constant/colors.js';
 import * as Typography from '../constant/typography';
@@ -17,7 +18,7 @@ const AddTeam = props => {
   let same = props.route?.params ? props.route?.params?.same : false;
 
   const [playerName, setPlayerName] = useState('');
-  const [players, setPlayers] = useState([]);
+
   const [score, setScore] = useState('');
   const [isScore, setIsScore] = useState(true);
   const [teamName, setTeamName] = useState('');
@@ -30,7 +31,7 @@ const AddTeam = props => {
     {
       same ? null : reset();
     }
-  }, [props.route.toString()]);
+  }, [props.route]);
   const reset = () => {
     setPlayerName('');
     setScore('');
@@ -121,59 +122,65 @@ const AddTeam = props => {
   };
   console.log('sssss', playersArr);
   return (
-    <View style={styles.container}>
-      <Headers />
-      <CustomText
-        size={30}
-        title={'Add Players And Desired Winning Score'}
-        style={styles.text}
-      />
-      {isTeam ? (
-        <View style={styles.midContainer}>
-          <Input
-            title={'Enter Team Name'}
-            value={teamName}
-            onChangeText={onchangeTeam}
-          />
-          {isScore ? (
+    <KeyboardAwareScrollView behavior="padding" style={styles.container}>
+      <View style={styles.container}>
+        <Headers />
+        <CustomText
+          size={30}
+          title={'Add Players And Desired Winning Score'}
+          style={styles.text}
+        />
+        {isTeam ? (
+          <View style={styles.midContainer}>
             <Input
-              title={'Enter Desired Winning Score'}
-              value={score}
-              onChangeText={onChangeScore}
+              title={'Enter Team Name'}
+              value={teamName}
+              inputType={'default'}
+              onChangeText={onchangeTeam}
             />
-          ) : (
-            <CustomText
-              size={20}
-              title={`Score is ${score}.`}
-              style={{textAlign: 'center'}}
+            {isScore ? (
+              <Input
+                title={'Enter Desired Winning Score'}
+                value={score}
+                inputType={'number-pad'}
+                onChangeText={onChangeScore}
+              />
+            ) : (
+              <CustomText
+                size={20}
+                title={`Score is ${score}.`}
+                style={{textAlign: 'center'}}
+              />
+            )}
+            <Button
+              title={data.length > 0 ? 'Add Another Team' : 'Add Team'}
+              onPress={() => onAddTeam()}
             />
-          )}
-          <Button
-            title={data.length > 0 ? 'Add Another Team' : 'Add Team'}
-            onPress={() => onAddTeam()}
-          />
-          <Button title={'Start Game'} onPress={() => startGame()} />
-        </View>
-      ) : (
-        <View style={styles.bottomContainer}>
-          <Input
-            title={'Enter Player Name'}
-            value={playerName}
-            onChangeText={onchangePlayer}
-          />
-          <Button
-            title={playersArr.length > 0 ? 'Next Player ' : 'Add Player'}
-            onPress={() => addPlayer()}
-          />
-          <Button
-            title={'Add Another Team / Go Back'}
-            onPress={() => onAddAnotherTeam()}
-            fontSize={12}
-          />
-        </View>
-      )}
-      <Button title={'Reset'} onPress={() => reset()} />
-    </View>
+            <Button title={'Start Game'} onPress={() => startGame()} />
+          </View>
+        ) : (
+          <View style={styles.bottomContainer}>
+            <Input
+              title={'Enter Player Name'}
+              inputType={'default'}
+              value={playerName}
+              onChangeText={onchangePlayer}
+            />
+            <Button
+              title={playersArr.length > 0 ? 'Next Player ' : 'Add Player'}
+              onPress={() => addPlayer()}
+            />
+            <Button
+              title={'Add Another Team / Go Back'}
+              onPress={() => onAddAnotherTeam()}
+              type={true}
+              fontSize={10}
+            />
+          </View>
+        )}
+        <Button title={'Reset'} onPress={() => reset()} />
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 const styles = StyleSheet.create({

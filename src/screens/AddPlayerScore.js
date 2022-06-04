@@ -85,6 +85,7 @@ const AddPlayerScore = props => {
         key={index => index}
         keyExtractor={(item, index) => index}
         ItemSeparatorComponent={separator}
+        contentContainerStyle={{paddingBottom: 20}}
       />
     </View>
   );

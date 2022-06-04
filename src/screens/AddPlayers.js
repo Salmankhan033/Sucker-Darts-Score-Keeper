@@ -4,6 +4,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 import * as Colors from '../constant/colors.js';
 import * as Typography from '../constant/typography';
@@ -49,7 +50,7 @@ const AddPlayers = props => {
 
   const reset = () => {
     setPlayers([]);
-    setPlayerName([]), setScore('');
+    setPlayerName(''), setScore('');
     // ShowAlert({type: 'success', description: `Reset Successfully`});
   };
   const startGame = () => {
@@ -68,32 +69,37 @@ const AddPlayers = props => {
     }
   };
   return (
-    <View style={styles.container}>
-      <Headers />
-      <CustomText
-        size={30}
-        title={'Add Players And Desired Winning Score'}
-        style={styles.text}
-      />
-      <View style={styles.midContainer}>
-        <Input
-          title={'Enter Player Name'}
-          value={playerName}
-          onChangeText={changeVal}
+    <KeyboardAwareScrollView behavior="padding" style={styles.container}>
+      <View style={styles.container}>
+        <Headers />
+        <CustomText
+          size={30}
+          title={'Add Players And Desired Winning Score'}
+          style={styles.text}
         />
-        <Button
-          title={players.length > 0 ? 'Next Player' : 'Add Player'}
-          onPress={() => addPlayer()}
-        />
-        <Input
-          title={'Enter Desired Winning Score'}
-          value={score}
-          onChangeText={onChangeScore}
-        />
-        <Button title={'Reset'} onPress={() => reset()} />
-        <Button title={'Start Game'} onPress={() => startGame()} />
+        <View style={styles.midContainer}>
+          <Input
+            title={'Enter Player Name'}
+            value={playerName}
+            inputType={'default'}
+            onChangeText={changeVal}
+          />
+          <Button
+            title={players.length > 0 ? 'Next Player' : 'Add Player'}
+            fontSize={24}
+            onPress={() => addPlayer()}
+          />
+          <Input
+            title={'Enter Desired Winning Score'}
+            value={score}
+            inputType={'number-pad'}
+            onChangeText={onChangeScore}
+          />
+          <Button title={'Reset'} onPress={() => reset()} />
+          <Button title={'Start Game'} onPress={() => startGame()} />
+        </View>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 const styles = StyleSheet.create({
