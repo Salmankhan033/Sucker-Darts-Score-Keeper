@@ -63,9 +63,10 @@ const AddPlayerScore = props => {
       <View style={styles.card}>
         <CustomText size={20} title={item?.playerName} style={styles.text} />
         <View style={styles.midCard}>
-          <PlusButton title={'-'} onPress={() => onMinusValue(item)} />
-          <CustomText size={20} title={item.score} style={styles.text} />
           <PlusButton title={'+'} onPress={() => onAddValue(item)} />
+
+          <CustomText size={20} title={item.score} style={styles.text} />
+          <PlusButton title={'-'} onPress={() => onMinusValue(item)} />
         </View>
       </View>
     );

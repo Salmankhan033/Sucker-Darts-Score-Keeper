@@ -148,7 +148,10 @@ const AddTeam = props => {
               style={{textAlign: 'center'}}
             />
           )}
-          <Button title={'Add Team'} onPress={() => onAddTeam()} />
+          <Button
+            title={data.length > 0 ? 'Add Another Team' : 'Add Team'}
+            onPress={() => onAddTeam()}
+          />
           <Button title={'Start Game'} onPress={() => startGame()} />
         </View>
       ) : (
@@ -158,7 +161,10 @@ const AddTeam = props => {
             value={playerName}
             onChangeText={onchangePlayer}
           />
-          <Button title={'Add Player'} onPress={() => addPlayer()} />
+          <Button
+            title={playersArr.length > 0 ? 'Next Player ' : 'Add Player'}
+            onPress={() => addPlayer()}
+          />
           <Button
             title={'Add Another Team / Go Back'}
             onPress={() => onAddAnotherTeam()}
@@ -186,7 +192,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   bottomContainer: {
-    height: hp('20%'),
+    height: hp('25%'),
     justifyContent: 'space-around',
   },
   btn: {

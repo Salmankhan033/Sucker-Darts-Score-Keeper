@@ -104,17 +104,18 @@ const TeamPlay = props => {
               />
               <View style={styles.midCard}>
                 <PlusButton
-                  title={'-'}
-                  onPress={() => onMinusValue(item, player)}
+                  title={'+'}
+                  onPress={() => onAddValue(item, player)}
                 />
+
                 <CustomText
                   size={20}
                   title={player.score}
                   style={styles.text}
                 />
                 <PlusButton
-                  title={'+'}
-                  onPress={() => onAddValue(item, player)}
+                  title={'-'}
+                  onPress={() => onMinusValue(item, player)}
                 />
               </View>
             </View>
