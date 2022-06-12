@@ -53,7 +53,7 @@ const AddTeam = props => {
   };
   const onAddTeam = () => {
     if (teamName == '' || score == '') {
-      ShowAlert({type: 'error', description: `Please Add Team Name & Score`});
+      ShowAlert({type: 'error', description: `Please Add Team Name Or Score`});
     } else {
       setIsTeam(false);
       setIsScore(false);
@@ -81,13 +81,16 @@ const AddTeam = props => {
       ShowAlert({type: 'error', description: `Please Add Player Name`});
     } else {
       playersArr.push(data);
-      ShowAlert({type: 'success', description: `${playerName} Added.`});
+      ShowAlert({
+        type: 'success',
+        description: `${playerName} Added Successfully.`,
+      });
       setPlayerName('');
     }
   };
   const onAddAnotherTeam = () => {
-    if (playersArr.length < 1) {
-      ShowAlert({type: 'error', description: `Please Add Players Name`});
+    if (playersArr.length <= 1) {
+      ShowAlert({type: 'error', description: `Please Add Minimum Two Players`});
     } else {
       let _data = {
         teamName: teamData.teamName,
@@ -104,7 +107,7 @@ const AddTeam = props => {
     }
   };
   const startGame = () => {
-    if (data.length > 0) {
+    if (data.length >= 2) {
       // for (let i = 0; i < data.length; i++) {
       //   for (let i = 0; i < data[i].playerArr.length; i++) {
       //     data[i].playerArr.score = 0;
@@ -117,10 +120,44 @@ const AddTeam = props => {
         desiredScore: score,
       });
     } else {
-      ShowAlert({type: 'error', description: `Please Enter Data`});
+      ShowAlert({type: 'error', description: `Please Add Minimum Two Teams`});
+    }
+  }; // my...
+  const onStartGame = () => {
+    if (playersArr.length <= 1) {
+      ShowAlert({type: 'error', description: `Please Add Minimum Two Players`});
+    } else {
+      let _data = {
+        teamName: teamData.teamName,
+        score: teamData.score,
+        playerArr: playersArr,
+        myScore: teamData.myScore,
+      };
+
+      if (data.length >= 1) {
+        data.push(_data);
+        setTeamData({});
+        setPlayersArr([]);
+        setIsTeam(true);
+        setTeamName('');
+        setPlayersArr([]);
+        props.navigation.navigate('TeamPlay', {
+          players: data,
+          type: 'team',
+          desiredScore: score,
+        });
+      } else {
+        ShowAlert({type: 'error', description: `Minimum Team Will Be Two`});
+      }
+
+      // setTeamData({});
+      // setPlayersArr([]);
+      // setIsTeam(truAe);
+      // setTeamName('');
+      // setPlayersArr([]);
     }
   };
-  console.log('sssss', playersArr);
+
   return (
     <KeyboardAwareScrollView behavior="padding" style={styles.container}>
       <View style={styles.container}>
@@ -171,11 +208,12 @@ const AddTeam = props => {
               onPress={() => addPlayer()}
             />
             <Button
-              title={'Add Another Team / Go Back'}
+              title={'Add Another Team'}
               onPress={() => onAddAnotherTeam()}
               type={true}
               fontSize={10}
             />
+            <Button title={'Start Game'} onPress={() => onStartGame()} />
           </View>
         )}
         <Button title={'Reset'} onPress={() => reset()} />
@@ -187,7 +225,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.BackgroundColor,
-    paddingTop: 15,
   },
   text: {
     textAlign: 'center',
@@ -199,7 +236,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   bottomContainer: {
-    height: hp('25%'),
+    height: hp('30%'),
     justifyContent: 'space-around',
   },
   btn: {

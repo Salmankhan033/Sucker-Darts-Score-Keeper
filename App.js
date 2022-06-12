@@ -15,7 +15,10 @@ const App = () => {
   }, []);
   return (
     <SafeAreaProvider>
-      <StatusBar backgroundColor={'#00ae00'} barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={Colors.BackgroundColor}
+        barStyle="dark-content"
+      />
       <NavigationContainer>
         <Navigations />
       </NavigationContainer>

@@ -12,12 +12,22 @@ import * as Typography from '../constant/typography';
 import Button from '../components/Button.js';
 const Win = props => {
   let {name, type} = props.route?.params;
-  console.log(name, 'cbdshcbsdjhcbsdhj', props);
+  let totalPlayers = props.route.params ? props.route?.params?.players : [];
+  let desiredScore = props.route.params
+    ? props.route?.params?.desiredScore
+    : '';
 
   const samePlayer = () => {
     type == 'team'
-      ? props.navigation.navigate('AddTeam', {same: true})
-      : props.navigation.navigate('AddPlayers', {same: true});
+      ? props.navigation.navigate('TeamPlay', {
+          same: true,
+          players: totalPlayers,
+        })
+      : props.navigation.navigate('AddPlayerScore', {
+          same: true,
+          players: totalPlayers,
+          desiredScore: desiredScore,
+        });
   };
   const diffPlayer = () => {
     type == 'team'
@@ -47,7 +57,7 @@ const Win = props => {
           title={
             type == 'team'
               ? 'Play Again With Same Teams'
-              : 'Play Again With Same Player'
+              : 'Play Again With Same Players'
           }
           style={{width: wp('90%')}}
           fontSize={{fontSize: 18}}
@@ -57,11 +67,17 @@ const Win = props => {
           title={
             type == 'team'
               ? 'Play Again With Different Teams'
-              : 'Play Again With Different Player'
+              : 'Play Again With Different Players'
           }
           style={{width: wp('90%')}}
           fontSize={{fontSize: 18}}
           onPress={() => diffPlayer()}
+        />
+        <Button
+          title="Go to Main Screen"
+          style={{width: wp('90%')}}
+          fontSize={{fontSize: 18}}
+          onPress={() => props.navigation.navigate('AddTeamPlayers')}
         />
       </View>
     </View>
@@ -84,7 +100,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   btnView: {
-    height: hp('15%'),
+    height: hp('20%'),
     width: wp('95%'),
 
     justifyContent: 'space-around',

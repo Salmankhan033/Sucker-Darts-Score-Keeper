@@ -20,16 +20,35 @@ const AddPlayerScore = props => {
     : '';
   let type = props.route.params ? props.route?.params?.type : '';
 
-  console.log('totalPlayers', totalPlayers);
   const [score, setScore] = useState('');
 
   const [winnerName, setWinnerName] = useState('');
+
+  useEffect(() => {
+    resetData();
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      resetData();
+      setScore('');
+    });
+    return () => {
+      unsubscribe;
+    };
+  }, [props.route]);
+
+  const resetData = () => {
+    for (let t = 0; t < totalPlayers.length; t++) {
+      totalPlayers[t].score = 0;
+    }
+    setScore(0);
+  };
 
   const onAddValue = item => {
     if (item.score + 1 == desiredScore) {
       setTimeout(() => {
         props.navigation.navigate('Win', {
           name: item.playerName,
+          players: totalPlayers,
+          desiredScore: desiredScore,
         });
       }, 200);
       item.score = item.score + 1;
@@ -58,7 +77,6 @@ const AddPlayerScore = props => {
   };
 
   const RenderCard = ({item}) => {
-    console.log('item...', item);
     return (
       <View style={styles.card}>
         <CustomText size={20} title={item?.playerName} style={styles.text} />

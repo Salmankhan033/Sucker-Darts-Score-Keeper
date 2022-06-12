@@ -9,6 +9,8 @@ import AddTeam from './screens/AddTeam';
 import AddPlayerScore from './screens/AddPlayerScore';
 import Win from './screens/Win';
 import TeamPlay from './screens/TeamPlay';
+import * as Colors from './constant/colors';
+
 const Stack = createNativeStackNavigator();
 const Navigations = () => {
   return (
@@ -27,17 +29,35 @@ const Navigations = () => {
         <Stack.Screen
           name="AddPlayers"
           component={AddPlayers}
-          options={{headerShown: false}}
+          options={{
+            headerTintColor: Colors.Black,
+            headerStyle: {
+              backgroundColor: Colors.BackgroundColor,
+            },
+            // headerShown: false
+          }}
         />
         <Stack.Screen
           name="AddTeam"
           component={AddTeam}
-          options={{headerShown: false}}
+          options={{
+            headerTintColor: Colors.Black,
+            headerStyle: {
+              backgroundColor: Colors.BackgroundColor,
+            },
+            // headerShown: false
+          }}
         />
         <Stack.Screen
           name="AddPlayerScore"
           component={AddPlayerScore}
-          options={{headerShown: false}}
+          options={{
+            headerTintColor: Colors.Black,
+            headerStyle: {
+              backgroundColor: Colors.BackgroundColor,
+            },
+            // headerShown: false
+          }}
         />
         <Stack.Screen
           name="Win"
@@ -47,7 +67,13 @@ const Navigations = () => {
         <Stack.Screen
           name="TeamPlay"
           component={TeamPlay}
-          options={{headerShown: false}}
+          options={{
+            headerTintColor: Colors.Black,
+            headerStyle: {
+              backgroundColor: Colors.BackgroundColor,
+            },
+            // headerShown: false
+          }}
         />
       </Stack.Navigator>
     </SafeAreaProvider>

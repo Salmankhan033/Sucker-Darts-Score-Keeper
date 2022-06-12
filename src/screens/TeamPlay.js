@@ -22,9 +22,14 @@ const TeamPlay = props => {
   const [score, setScore] = useState(0);
   useEffect(() => {
     resetData();
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      resetData();
+    });
+    return () => {
+      unsubscribe;
+    };
   }, [props.route]);
   const resetData = () => {
-    console.log('Data...', totalPlayers);
     for (let t = 0; t < totalPlayers.length; t++) {
       for (let p = 0; p < totalPlayers[t].playerArr.length; p++) {
         totalPlayers[t].myScore = 0;
@@ -32,8 +37,7 @@ const TeamPlay = props => {
         setScore(score + 1);
       }
     }
-    setScore();
-    // console.log('good ho gia,,,,', JSON.stringify(totalPlayers));
+    setScore(0);
   };
 
   const onAddValue = (team, player) => {
@@ -42,6 +46,7 @@ const TeamPlay = props => {
         props.navigation.navigate('Win', {
           name: team.teamName,
           type: 'team',
+          players: totalPlayers,
         });
       }, 200);
       player.score = player.score + 1;
@@ -78,7 +83,7 @@ const TeamPlay = props => {
         <View style={{marginTop: hp('2%'), BackgroundColor: 'red'}}>
           <CustomText
             size={20}
-            title={`Team: ${item.teamName}`}
+            title={`Team ${item.teamName} Score: ${item.myScore}`}
             style={styles.teamText}
           />
           {item.playerArr.map((player, index) => (

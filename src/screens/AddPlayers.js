@@ -43,7 +43,10 @@ const AddPlayers = props => {
       ShowAlert({type: 'error', description: `Please Add Player Name`});
     } else {
       players.push(data);
-      ShowAlert({type: 'success', description: `${playerName} Added.`});
+      ShowAlert({
+        type: 'success',
+        description: `${playerName} Added Successfully.`,
+      });
       setPlayerName('');
     }
   };
@@ -54,7 +57,7 @@ const AddPlayers = props => {
     // ShowAlert({type: 'success', description: `Reset Successfully`});
   };
   const startGame = () => {
-    if (players.length > 0 && score != '') {
+    if (players.length > 1 && score != '') {
       for (let i = 0; i < players.length; i++) {
         players[i].score = 0;
       }
@@ -65,7 +68,10 @@ const AddPlayers = props => {
         type: 'Player',
       });
     } else {
-      ShowAlert({type: 'error', description: `Please Enter Data`});
+      ShowAlert({
+        type: 'error',
+        description: `Please Add Two Players Or Desired Score`,
+      });
     }
   };
   return (
